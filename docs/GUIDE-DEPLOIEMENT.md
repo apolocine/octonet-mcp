@@ -493,9 +493,65 @@ npx @smithery/cli mcp publish https://mcp.amia.fr/mcp --name mostajs/octonet-mcp
 
 ### 8.3 mcp.so
 
-mcp.so est un agregateur qui indexe automatiquement le registre officiel MCP. Apres publication sur le registre officiel (8.1), le serveur apparait automatiquement sur mcp.so.
+mcp.so est un agregateur qui indexe automatiquement le registre officiel MCP. En complement de l'indexation automatique, une soumission manuelle a ete effectuee via le formulaire web.
 
-Soumission manuelle alternative : https://mcp.so/submit → coller l'URL du repo GitHub.
+#### Soumission manuelle via https://mcp.so/submit
+
+Se connecter avec le compte GitHub (`apolocine`), puis remplir le formulaire :
+
+| Champ | Valeur |
+|---|---|
+| **Name** | `OctoNet MCP` |
+| **URL** | `https://github.com/apolocine/mosta-net` |
+| **Description** | `1 MCP server, 13 databases, zero config. Connect AI agents to PostgreSQL, MySQL, MongoDB, SQLite, Oracle, SQL Server, DB2, SAP HANA, MariaDB, CockroachDB, Cloud Spanner, HSQLDB, Sybase. 15 tools per entity + 4 AI prompts. Auth + RBAC included. 11 transports: REST, GraphQL, gRPC, WebSocket, SSE, tRPC, MCP, OData, Arrow Flight, JSON-RPC, NATS.` |
+| **Tags** | `mcp, database, orm, postgresql, mysql, mongodb, sqlite, oracle, sql-server, multi-database, ai-agent, crud, graphql, rest, grpc, websocket, mostajs` |
+| **Avatar URL** | `https://raw.githubusercontent.com/apolocine/mosta-net/master/logo/octonet-icon.svg` |
+| **Server Config** | Voir ci-dessous |
+| **Content** | README du projet (quick start, Claude Desktop config, databases, tools, prompts) |
+
+#### Server Config soumis
+
+```json
+{
+  "mcpServers": {
+    "octonet": {
+      "command": "npx",
+      "args": ["octonet-mcp", "--dialect=sqlite", "--uri=:memory:"]
+    }
+  }
+}
+```
+
+#### Content soumis
+
+```markdown
+# OctoNet MCP
+
+> **1 MCP server, 13 databases, zero config.**
+
+## Quick Start
+npx octonet-mcp --dialect=postgres --uri=postgresql://user:pass@localhost:5432/mydb
+
+## Claude Desktop Configuration (local)
+{"mcpServers":{"octonet":{"command":"npx","args":["octonet-mcp","--dialect=sqlite","--uri=:memory:"]}}}
+
+## Claude Desktop Configuration (remote)
+{"mcpServers":{"octonet":{"url":"https://mcp.amia.fr/mcp"}}}
+
+## 13 Databases
+PostgreSQL, MySQL, MariaDB, SQLite, Oracle, SQL Server, DB2, SAP HANA, HSQLDB, Sybase, CockroachDB, Cloud Spanner, MongoDB.
+
+## 15 MCP Tools per Entity
+findAll, findById, create, update, delete, count, findOne, search, upsert, deleteMany, updateMany, aggregate, addToSet, pull, increment.
+
+## 4 Prompts
+describe-schema, suggest-query, explain-data, list-entities.
+```
+
+#### Remarques
+- La connexion GitHub est necessaire pour soumettre
+- mcp.so indexe aussi automatiquement le registre officiel MCP (double source)
+- L'avatar utilise le logo SVG du repo `mosta-net` sur la branche `master`
 
 ### 8.4 Fichier smithery.yaml
 
